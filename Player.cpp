@@ -12,6 +12,42 @@ struct identityInfo{
   string background;
 };
 
+void Player::setIdentityInfo(string playerName, string charName, string charNickname, string race, string background){
+  if(!playerName.empty()){
+    identityInfo.playerName = playerName;
+  }
+  if(!charName.empty()){
+    identityInfo.characterName = charName;
+  }
+  if(!charNickname.empty()){
+    identityInfo.characterNickname = charNickname;
+  }
+  if(!race.empty()){
+    identityInfo.race = race;
+  }
+  if(!background.empty()){
+    identityInfo.background = background;
+  }
+}
+
+string Player::getIdentityInfo(string infoType){
+  if(infoType) == "playerName"{
+    return identityInfo.playerName;
+  }
+  if(infoType) == "charName"{
+    return identityInfo.characterName;
+  }
+  if(infoType) == "charNickname"{
+    return identityInfo.characterNickname;
+  }
+  if(infoType) == "race"{
+    return identityInfo.race;
+  }
+  if(infoType) == "background"{
+    return identityInfo.background;
+  }
+}
+
 struct classType{
   int classLevel;
   string className;
@@ -38,19 +74,8 @@ struct stats{
   int totalLevel;
   //str/dex/con/int/wis/cha
   int statArr[6];
+  vector <classType> classes;
 };
-
-struct attack{
-  string weaponName;
-  int hitBonus;
-  int damageDice;
-  int damageDiceQuantity;
-  int damageModifier;
-  string type;
-  bool thrown;
-  int range;
-  int disadvantageRange;
-}
 
 //BST for items here
 //BST for abilities
@@ -64,18 +89,30 @@ struct currency{
   int platinum;
 };
 
+void setCurrency(int copper, int silver, int electrum, int gold, int platinum){
+  currency.copper += copper;
+  currency.silver += silver;
+  currency.electrum += electrum;
+  currency.gold += gold;
+  currency.platinum += platinum;
+}
+
+int getCurrency(string currencyType){
+  if(currencyType == "copper"){
+    return currency.copper;
+  }else if(currencyType == "silver"){
+    return currency.silver;
+  }else if(currencyType == "electrum"){
+    return currency.electrum;
+  }else if(currencyType == "gold"){
+    return currency.gold;
+  }else{
+    return currency.platinum;
+  }
+}
+
 int statModifierCalc(int stat){
   return floor((stat - 10) / 2);
 }
-
-struct physicalFeatures{
-  int age;
-  float height;
-  int weight;
-  string eyeColor;
-  string skinColor;
-  string hairColor;
-};
-
 
 #endif
