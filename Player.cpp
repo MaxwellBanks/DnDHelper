@@ -11,7 +11,6 @@ struct identityInfoStruct{
   string race;
   string background;
 };
-
 identityInfoStruct identityInfo;
 
 void Player::setIdentityInfo(string playerName, string charName, string charNickname, string race, string background){
@@ -56,6 +55,20 @@ struct classType{
   string subClass;
 };
 
+vector <classType> classes;
+
+void Player::addClass(int classLevel, string className, string subClass){
+  classType newClass;
+  newClass.classLevel = classLevel;
+  newClass.className = className;
+  newClass.subClass = subClass;
+  classes.push(newClass);
+}
+
+vector <classType> Player::getClasses(){
+  return classes;
+}
+
 struct skillData{
   bool proficient;
   bool expertise;
@@ -86,7 +99,7 @@ skillData Player::getSkills(int index){
   return skills[index];
 }
 
-struct stats{
+struct statsStruct{
   int currentHealth;
   int maxHealth;
   int AC;
@@ -96,14 +109,43 @@ struct stats{
   int totalLevel;
   //str/dex/con/int/wis/cha
   int statArr[6];
-  vector <classType> classes;
 };
+statsStruct stats;
 
-void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr, vector <classType> classVect){
-  stats.currentHealth
+void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr){
+  if(currHealth){
+      stats.currentHealth = currHealth;
+  }
+  if(maxHealth){
+    stats.maxHealth = maxHealth;
+  }
+  if(ac){
+    stats.AC = ac;
+  }
+  if(initiative){
+    stats.initiative = initiative;
+  }
+  if(speed){
+    stats.speed = speed;
+  }
+  if(passiveWis){
+    stats.passiveWis = passiveWis;
+  }
+  if(totalLevel){
+    stats.totalLevel = totalLevel;
+  }
+  for(int i = 0; i < 6; i++){
+    if(statArr[i]){
+      stats.statArr[i] = statArr[i];
+    }
+  }
 }
 
-
+void getStats(string statType){
+  if(statType == "currentHealth"){
+    return currentHealth;
+  }
+}
 
 //BST for items here
 //BST for abilities
@@ -116,7 +158,6 @@ struct currencyStruct{
   int gold;
   int platinum;
 };
-
 currencyStruct currency;
 
 void Player::setCurrency(int copper, int silver, int electrum, int gold, int platinum){
