@@ -4,13 +4,15 @@
 
 using namespace std;
 
-struct identityInfo{
+struct identityInfoStruct{
   string playerName;
   string characterName;
   string characterNickname;
   string race;
   string background;
 };
+
+identityInfoStruct identityInfo;
 
 void Player::setIdentityInfo(string playerName, string charName, string charNickname, string race, string background){
   if(!playerName.empty()){
@@ -64,6 +66,26 @@ skillData savingThrows[6];
 
 skillData skills[18];
 
+void Player::setSavingThrows(int index, bool proficient, bool expertise, int modifier){
+  savingThrows[index].proficient = proficient;
+  savingThrows[index].expertise = expertise;
+  savingThrows[index].modifier = modifier;
+}
+
+skillData Player::getSavingThrows(int index){
+  return savingThrows[index];
+}
+
+void Player::setSkills(int index, bool proficient, bool expertise, int modifier){
+  skills[index].proficient = proficient;
+  skills[index].expertise = expertise;
+  skills[index].modifier = modifier;
+}
+
+skillData Player::getSkills(int index){
+  return skills[index];
+}
+
 struct stats{
   int currentHealth;
   int maxHealth;
@@ -77,11 +99,17 @@ struct stats{
   vector <classType> classes;
 };
 
+void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr, vector <classType> classVect){
+  stats.currentHealth
+}
+
+
+
 //BST for items here
 //BST for abilities
 // BST for spells
 
-struct currency{
+struct currencyStruct{
   int copper;
   int silver;
   int electrum;
@@ -89,7 +117,9 @@ struct currency{
   int platinum;
 };
 
-void setCurrency(int copper, int silver, int electrum, int gold, int platinum){
+currencyStruct currency;
+
+void Player::setCurrency(int copper, int silver, int electrum, int gold, int platinum){
   currency.copper += copper;
   currency.silver += silver;
   currency.electrum += electrum;
@@ -97,7 +127,7 @@ void setCurrency(int copper, int silver, int electrum, int gold, int platinum){
   currency.platinum += platinum;
 }
 
-int getCurrency(string currencyType){
+int Player::getCurrency(string currencyType){
   if(currencyType == "copper"){
     return currency.copper;
   }else if(currencyType == "silver"){
