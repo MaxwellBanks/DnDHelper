@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <vector>
 
 using namespace std;
 
@@ -70,5 +71,5 @@ class Player{
     int getStats(string statType);
 
     void setCurrency(int copper, int silver, int electrum, int gold, int platinum);
-    void getCurrency(string currencyType);
+    int getCurrency(string currencyType);
 };

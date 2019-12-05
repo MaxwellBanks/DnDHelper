@@ -1,6 +1,8 @@
 #include <iostream>
+#include <vector>
 #include "Player.hpp"
 #include <string>
+#include <cmath>
 
 using namespace std;
 
@@ -24,19 +26,19 @@ void Player::setIdentityInfo(string playerName, string charName, string charNick
 }
 
 string Player::getIdentityInfo(string infoType){
-  if(infoType) == "playerName"{
+  if(infoType == "playerName"){
     return identityInfo.playerName;
   }
-  if(infoType) == "charName"{
+  if(infoType == "charName"){
     return identityInfo.characterName;
   }
-  if(infoType) == "charNickname"{
+  if(infoType == "charNickname"){
     return identityInfo.characterNickname;
   }
-  if(infoType) == "race"{
+  if(infoType == "race"){
     return identityInfo.race;
   }
-  if(infoType) == "background"{
+  if(infoType == "background"){
     return identityInfo.background;
   }
 }
@@ -48,7 +50,7 @@ void Player::addClass(int classLevel, string className, string subClass){
   newClass.classLevel = classLevel;
   newClass.className = className;
   newClass.subClass = subClass;
-  classes.push(newClass);
+  classes.push_back(newClass);
   stats.totalLevel = 0;
   for(int i = 0; i < classes.size(); i++){
     stats.totalLevel += classes[i].classLevel;
@@ -175,5 +177,3 @@ int Player::getCurrency(string currencyType){
 int statModifierCalc(int stat){
   return floor((stat - 10) / 2);
 }
-
-#endif
