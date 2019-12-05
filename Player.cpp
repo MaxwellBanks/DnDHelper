@@ -4,15 +4,7 @@
 
 using namespace std;
 
-struct identityInfoStruct{
-  string playerName;
-  string characterName;
-  string characterNickname;
-  string race;
-  string background;
-};
-identityInfoStruct identityInfo;
-
+//Identity Info
 void Player::setIdentityInfo(string playerName, string charName, string charNickname, string race, string background){
   if(!playerName.empty()){
     identityInfo.playerName = playerName;
@@ -49,14 +41,8 @@ string Player::getIdentityInfo(string infoType){
   }
 }
 
-struct classType{
-  int classLevel;
-  string className;
-  string subClass;
-};
-
-vector <classType> classes;
-
+///////////////////////////////////////////////////////////////////////////////
+//DND Class Info
 void Player::addClass(int classLevel, string className, string subClass){
   classType newClass;
   newClass.classLevel = classLevel;
@@ -73,16 +59,8 @@ vector <classType> Player::getClasses(){
   return classes;
 }
 
-struct skillData{
-  bool proficient;
-  bool expertise;
-  int modifier;
-};
-
-skillData savingThrows[6];
-
-skillData skills[18];
-
+///////////////////////////////////////////////////////////////////////////////
+//Skills/Saving Throws Data
 void Player::setSavingThrows(int index, bool proficient, bool expertise, int modifier){
   savingThrows[index].proficient = proficient;
   savingThrows[index].expertise = expertise;
@@ -103,20 +81,9 @@ skillData Player::getSkills(int index){
   return skills[index];
 }
 
-struct statsStruct{
-  int currentHealth;
-  int maxHealth;
-  int AC;
-  int initiative;
-  int speed;
-  int passiveWis;
-  int totalLevel;
-  //str/dex/con/int/wis/cha
-  int statArr[6];
-};
-statsStruct stats;
-
-void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr){
+///////////////////////////////////////////////////////////////////////////////
+//Stats Data
+void Player::setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr){
   if(currHealth){
       stats.currentHealth = currHealth;
   }
@@ -145,7 +112,7 @@ void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, 
   }
 }
 
-int getStats(string statType){
+int Player::getStats(string statType){
   if(statType == "currentHealth"){
     return stats.currentHealth;
   }else if(statType == "maxHealth"){
@@ -175,19 +142,13 @@ int getStats(string statType){
   }
 }
 
+//////////////////////////////////////////////////////////////////////////////
+
 //BST for items here
 //BST for abilities
 // BST for spells
 
-struct currencyStruct{
-  int copper;
-  int silver;
-  int electrum;
-  int gold;
-  int platinum;
-};
-currencyStruct currency;
-
+//Currency Data
 void Player::setCurrency(int copper, int silver, int electrum, int gold, int platinum){
   currency.copper += copper;
   currency.silver += silver;
@@ -210,6 +171,7 @@ int Player::getCurrency(string currencyType){
   }
 }
 
+///////////////////////////////////////////////////////////////////////////////
 int statModifierCalc(int stat){
   return floor((stat - 10) / 2);
 }
