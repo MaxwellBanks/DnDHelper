@@ -63,6 +63,10 @@ void Player::addClass(int classLevel, string className, string subClass){
   newClass.className = className;
   newClass.subClass = subClass;
   classes.push(newClass);
+  stats.totalLevel = 0;
+  for(int i = 0; i < classes.size(); i++){
+    stats.totalLevel += classes[i].classLevel;
+  }
 }
 
 vector <classType> Player::getClasses(){
@@ -141,9 +145,33 @@ void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, 
   }
 }
 
-void getStats(string statType){
+int getStats(string statType){
   if(statType == "currentHealth"){
-    return currentHealth;
+    return stats.currentHealth;
+  }else if(statType == "maxHealth"){
+    return stats.maxHealth;
+  }else if(statType == "AC"){
+    return stats.AC;
+  }else if(statType == "initiative"){
+    return stats.initiative;
+  }else if(statType == "speed"){
+    return stats.speed;
+  }else if(statType == "passiveWis"){
+    return stats.passiveWis;
+  }else if(statType == "totalLevel"){
+    return stats.totalLevel;
+  }else if(statType == "Str"){
+    return stats.statArr[0];
+  }else if(statType == "Dex"){
+    return stats.statArr[1];
+  }else if(statType == "Con"){
+    return stats.statArr[2];
+  }else if(statType == "Int"){
+    return stats.statArr[3];
+  }else if(statType == "Wis"){
+    return stats.statArr[4];
+  }else if(statType == "Cha"){
+    return stats.statArr[5];
   }
 }
 
