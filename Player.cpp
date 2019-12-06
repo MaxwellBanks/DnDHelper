@@ -6,6 +6,11 @@
 
 using namespace std;
 
+Player::Player(){
+
+}
+
+
 //Identity Info
 void Player::setIdentityInfo(string playerName, string charName, string charNickname, string race, string background){
   if(!playerName.empty()){
@@ -85,7 +90,7 @@ skillData Player::getSkills(int index){
 
 ///////////////////////////////////////////////////////////////////////////////
 //Stats Data
-void Player::setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr){
+void Player::setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int profBonus, int* statArr){
   if(currHealth){
       stats.currentHealth = currHealth;
   }
@@ -106,6 +111,9 @@ void Player::setStats(int currHealth, int maxHealth, int ac, int initiative, int
   }
   if(totalLevel){
     stats.totalLevel = totalLevel;
+  }
+  if(profBonus){
+    stats.proficiencyBonus = profBonus;
   }
   for(int i = 0; i < 6; i++){
     if(statArr[i]){
@@ -129,6 +137,8 @@ int Player::getStats(string statType){
     return stats.passiveWis;
   }else if(statType == "totalLevel"){
     return stats.totalLevel;
+  }else if(statType == "proficiencyBonus"){
+    return stats.proficiencyBonus;
   }else if(statType == "Str"){
     return stats.statArr[0];
   }else if(statType == "Dex"){
@@ -176,4 +186,16 @@ int Player::getCurrency(string currencyType){
 ///////////////////////////////////////////////////////////////////////////////
 int statModifierCalc(int stat){
   return floor((stat - 10) / 2);
+}
+
+void Player::printCharacter(){
+  cout << "##########################################" << endl;
+  cout << "##| " << identityInfo.playerName << " '" << identityInfo.characterName << " / " << identityInfo.characterNickname << "'" << endl;
+  cout << "##| Level " << stats.totalLevel << " || " << identityInfo.race << " || " << identityInfo.background << endl;
+  cout << "##";
+  for(int i = 0; i < classes.size(); i++){
+    cout << "| Lvl " << classes[i].classLevel << " " << classes[i].className << " (" << classes[i].subClass << ") |";
+  }
+  cout << endl;
+  cout << "##| Health: " << stats.currentHealth << "/" << stats.maxHealth << " || AC: " << stats.AC << " || Initiative: " << stats.initiative << endl;
 }

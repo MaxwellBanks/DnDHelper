@@ -32,6 +32,7 @@ struct statsStruct{
   int speed;
   int passiveWis;
   int totalLevel;
+  int proficiencyBonus;
   //str/dex/con/int/wis/cha
   int statArr[6];
 };
@@ -67,9 +68,11 @@ class Player{
     void setSkills(int index, bool proficient, bool expertise, int modifier);
     skillData getSkills(int index);
 
-    void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int* statArr);
+    void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int profBonus, int* statArr);
     int getStats(string statType);
 
     void setCurrency(int copper, int silver, int electrum, int gold, int platinum);
     int getCurrency(string currencyType);
+
+    void printCharacter();
 };
