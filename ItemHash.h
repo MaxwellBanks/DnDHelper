@@ -27,6 +27,10 @@ public:
   void printTable();
 
   string searchItem(string name);
+
+  void readData(string filename);
+
+  void writeData(string filename);
 };
 
 #endif

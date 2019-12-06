@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <fstream>
 #include "ItemHash.h"
 
 //TODO: READ IN, WRITE OUT FUNCTIONS
@@ -72,4 +74,42 @@ void ItemHash::printTable(){
       crawler = crawler->next;
     }
   }
+}
+
+void ItemHash::readData(string filename){
+  ifstream iFile;
+  iFile.open(filename);
+  if(!iFile.is_open()){
+    cout << "File " << filename << " cannot be opened" << endl;
+    return;
+  }
+  stringstream ss;
+  string line;
+  string name;
+  string description;
+  while(getline(iFile, line)){
+    ss << line;
+    getline(ss, name, ',');
+    getline(ss, description);
+    insertItem(name, description);
+  }
+  iFile.close();
+}
+
+void ItemHash::writeData(string filename){
+  ofstream oFile;
+  oFile.open(filename);
+  if(!oFile.is_open()){
+    cout << "Error: Cannot save to file " << filename << endl;
+    return;
+  }
+  item* crawler;
+  for(int i = 0; i < tableSize; i++){
+    crawler = table[i];
+    while(crawler){
+      oFile << crawler->name << "," << crawler->description << '\n';
+      crawler = crawler->next;
+    }
+  }
+  oFile.close();
 }
