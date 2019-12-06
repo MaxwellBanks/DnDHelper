@@ -47,7 +47,7 @@ string ItemHash::searchItem(string name){
 }
 
 bool ItemHash::insertItem(string name, string description){
-  if(!searchItem(name).empty()){
+  if(searchItem(name).empty()){
     item* newItem = createItem(name, description, NULL);
     item* crawler = table[hashFunction(name)];
     if(crawler){
@@ -83,14 +83,17 @@ void ItemHash::readData(string filename){
     cout << "File " << filename << " cannot be opened" << endl;
     return;
   }
-  stringstream ss;
   string line;
   string name;
   string description;
   while(getline(iFile, line)){
-    ss << line;
+    stringstream ss(line);
+    name = "";
+    description = "";
     getline(ss, name, ',');
     getline(ss, description);
+    cout << "Name: " << name << endl;
+    cout << "Desc: " << description << endl;
     insertItem(name, description);
   }
   iFile.close();
