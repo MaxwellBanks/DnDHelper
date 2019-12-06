@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "Player.hpp"
+#include "Player.h"
 #include <string>
 #include <cmath>
 

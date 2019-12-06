@@ -1,7 +1,13 @@
-#include "Player.hpp"
+#include "Player.h"
+#include "ItemHash.h"
 #include <iostream>
 
 using namespace std;
+
+ItemHash spells(593);
+ItemHash items(593);
+ItemHash monsters(593);
+ItemHash abilities(593);
 
 Player test;
 

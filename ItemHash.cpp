@@ -1,20 +1,23 @@
 #include <iostream>
 #include <string>
-#include "ItemHash.hpp"
+#include "ItemHash.h"
+
+//TODO: READ IN, WRITE OUT FUNCTIONS
+
 
 using namespace std;
 
 item* ItemHash::createItem(string name, string description, item* next){
   item* newItem = new item;
   newItem->name = name;
-  item->description = description;
-  item->next = next;
+  newItem->description = description;
+  newItem->next = next;
   return newItem;
 }
 
 ItemHash::ItemHash(int size){
   this->tableSize = size;
-  table = new node*[tableSize];
+  table = new item*[tableSize];
   for(int i = 0; i < size; i++){
     table[i] = nullptr;
   }
@@ -28,7 +31,7 @@ unsigned int ItemHash::hashFunction(string name){
   return (nameSum % tableSize);
 }
 
-item* ItemHash::searchItem(string name){
+string ItemHash::searchItem(string name){
   int index = hashFunction(name);
   item* crawler;
   crawler = table[index];
@@ -38,11 +41,11 @@ item* ItemHash::searchItem(string name){
     }
     crawler = crawler->next;
   }
-  return NULL;
+  return "";
 }
 
 bool ItemHash::insertItem(string name, string description){
-  if(!searchItem(name)){
+  if(!searchItem(name).empty()){
     item* newItem = createItem(name, description, NULL);
     item* crawler = table[hashFunction(name)];
     if(crawler){
