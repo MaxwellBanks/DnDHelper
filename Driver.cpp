@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "ItemHash.h"
+#include "Party.h"
 #include "BST.h"
 #include <iostream>
 
@@ -8,10 +9,18 @@ using namespace std;
 ItemHash spells(593);
 ItemHash items(593);
 ItemHash abilities(593);
+ItemHash monsters(3137);
+
+Party party;
 
 BST bst("ability");
 
 Player test;
+
+void readInit(){
+
+}
+
 
 int main(){
   test.setIdentityInfo("Max", "Varis", "Var", "Elf", "Charlatain");
@@ -29,7 +38,7 @@ int main(){
     test.setSkills(i, i % 2, i % 3, 6);
   }
   test.setCurrency(10, 20, 30, 40, 50);
-  test.printCharacter();
+  //test.printCharacter();
 
   items.readData("testData1.txt");
   //items.printTable();
@@ -40,8 +49,8 @@ int main(){
   bst.addItem("ability4", 4);
   bst.addItem("ability3", 3);
   //bst.printTree();
-  bst.deleteItem("ability3");
-  test.printSkills();
-  test.printCurrency();
-  //bst.printTree();
+  bst.deleteItem("ability5");
+  //test.printSkills();
+  //test.printCurrency();
+  bst.printTree();
 }

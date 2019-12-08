@@ -49,6 +49,7 @@ struct currencyStruct{
 
 
 class Player{
+  private:
     identityInfoStruct identityInfo;
     vector <classType> classes;
     skillData savingThrows[6];
@@ -57,12 +58,13 @@ class Player{
     currencyStruct currency;
     string statArrNames[6] = {"Str", "Dex", "Con", "Int", "Wis", "Cha"};
     string skillArrNames[18] = {"Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History",
-                              "Insight", "Intimidation", "Investigaation", "Medicine", "Nature", "Perception",
+                              "Insight", "Intimidation", "Investigation", "Medicine", "Nature", "Perception",
                               "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"};
     string currencyNames[5] = {"Copper", "Silver", "Electrum", "Gold", "Platinum"};
 
   public:
     Player();
+    void deletePlayer();
 
     void setIdentityInfo(string playerName, string charName, string charNickname, string race, string background);
     string getIdentityInfo(string infoType);

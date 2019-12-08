@@ -7,7 +7,20 @@
 
 using namespace std;
 
+//BST for items here
+BST item("item");
+//BST for abilities
+BST ability("ability");
+// BST for spells
+BST spell("spell");
+
 Player::Player(){
+}
+
+void Player::deletePlayer(){
+  item.~BST();
+  ability.~BST();
+  spell.~BST();
 }
 
 
@@ -155,13 +168,6 @@ int Player::getStats(string statType){
 }
 
 //////////////////////////////////////////////////////////////////////////////
-
-//BST for items here
-BST item("item");
-//BST for abilities
-BST ability("ability");
-// BST for spells
-BST spell("spell");
 
 void Player::addItem(string name, int data, string treeType){
   if(treeType == "item"){

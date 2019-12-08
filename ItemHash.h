@@ -12,25 +12,26 @@ struct item{
 };
 
 class ItemHash{
-  int tableSize;
+  private:
+    int tableSize;
 
-  item* *table;
+    item* *table;
 
-  item* createItem(string name, string description, item* next);
-public:
-  ItemHash(int size);
+    item* createItem(string name, string description, item* next);
+  public:
+    ItemHash(int size);
 
-  bool insertItem(string name, string description);
+    bool insertItem(string name, string description);
 
-  unsigned int hashFunction(string name);
+    unsigned int hashFunction(string name);
 
-  void printTable();
+    void printTable();
 
-  string searchItem(string name);
+    string searchItem(string name);
 
-  void readData(string filename);
+    void readData(string filename);
 
-  void writeData(string filename);
+    void writeData(string filename);
 };
 
 #endif

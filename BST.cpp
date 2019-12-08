@@ -85,28 +85,26 @@ void BST::destroyTree(Item* curr){
 Item* BST::deleteItemHelper(Item* curr, string name){
   if(!curr){
     return NULL;
+  }
+  if(name < curr->name){
+    curr->left = deleteItemHelper(curr->left, name);
   }else if(name > curr->name){
     curr->right = deleteItemHelper(curr->right, name);
-  }else if(name < curr->name){
-    curr->left = deleteItemHelper(curr->left, name);
   }else{
-    if(!curr->left && !curr->right){
-      delete curr;
-      curr = NULL;
-    }else if(!curr->left){
-      Item* temp = curr;
-      curr = curr->right;
-      delete temp;
-    }else if(!curr->right){
-      Item* temp = curr;
-      curr = curr->left;
-      delete temp;
-    }else{
-      curr->name = getFirstItem(curr->right)->name;
-      curr->data = getFirstItem(curr->right)->data;
-      curr->right = deleteItemHelper(curr->right, curr->name);
+    if(!curr->left){
+      Item* temp = curr->right;
+      free(curr);
+      return temp;
     }
-    //return curr;
+    if(!curr->right){
+      Item* temp = curr->left;
+      free(curr);
+      return temp;
+    }
+    Item* temp = getFirstItem(curr->right);
+    curr->name = temp->name;
+    curr->data = temp->data;
+    curr->right = deleteItemHelper(curr->right, temp->name);
   }
   return curr;
 }
@@ -146,10 +144,12 @@ BST::~BST(){
 
 Item* BST::modifyItem(string name, int newData){
   Item* toEdit = searchHelper(root, name);
-  toEdit->data = newData;
+  if(toEdit){
+    toEdit->data = newData;
+  }
   return toEdit;
 }
 
 void BST::deleteItem(string name){
-  deleteItemHelper(root, name);
+  root = deleteItemHelper(root, name);
 }
