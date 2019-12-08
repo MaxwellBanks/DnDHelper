@@ -4,9 +4,6 @@
 #include <fstream>
 #include "ItemHash.h"
 
-//TODO: READ IN, WRITE OUT FUNCTIONS
-
-
 using namespace std;
 
 item* ItemHash::createItem(string name, string description, item* next){
@@ -92,8 +89,6 @@ void ItemHash::readData(string filename){
     description = "";
     getline(ss, name, ',');
     getline(ss, description);
-    cout << "Name: " << name << endl;
-    cout << "Desc: " << description << endl;
     insertItem(name, description);
   }
   iFile.close();

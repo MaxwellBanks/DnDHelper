@@ -1,13 +1,15 @@
 #include "Player.h"
 #include "ItemHash.h"
+#include "BST.h"
 #include <iostream>
 
 using namespace std;
 
 ItemHash spells(593);
 ItemHash items(593);
-ItemHash monsters(593);
 ItemHash abilities(593);
+
+BST bst("ability");
 
 Player test;
 
@@ -27,5 +29,17 @@ int main(){
     test.setSkills(i, i % 2, i % 4, 6);
   }
   test.setCurrency(10, 20, 30, 40, 50);
-  test.printCharacter();
+  //test.printCharacter();
+
+  items.readData("testData1.txt");
+  //items.printTable();
+  items.writeData("testData2.txt");
+
+  bst.addItem("ability1", 1);
+  bst.addItem("ability2", 2);
+  bst.addItem("ability4", 4);
+  bst.addItem("ability3", 3);
+  bst.printTree();
+  bst.deleteItem("ability3");
+  bst.printTree();
 }
