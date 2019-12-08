@@ -27,13 +27,13 @@ struct skillData{
 };
 
 struct statsStruct{
-  int currentHealth;
-  int maxHealth;
-  int AC;
-  int initiative;
+  int currentHealth;//
+  int maxHealth;//
+  int AC;//
+  int initiative;//
   int speed;
   int passiveWis;
-  int totalLevel;
+  int totalLevel;//
   int proficiencyBonus;
   //str/dex/con/int/wis/cha
   int statArr[6];
@@ -47,6 +47,7 @@ struct currencyStruct{
   int platinum;
 };
 
+
 class Player{
     identityInfoStruct identityInfo;
     vector <classType> classes;
@@ -54,6 +55,11 @@ class Player{
     skillData skills[18];
     statsStruct stats;
     currencyStruct currency;
+    string statArrNames[6] = {"Str", "Dex", "Con", "Int", "Wis", "Cha"};
+    string skillArrNames[18] = {"Acrobatics", "Animal Handling", "Arcana", "Athletics", "Deception", "History",
+                              "Insight", "Intimidation", "Investigaation", "Medicine", "Nature", "Perception",
+                              "Performance", "Persuasion", "Religion", "Sleight of Hand", "Stealth", "Survival"};
+    string currencyNames[5] = {"Copper", "Silver", "Electrum", "Gold", "Platinum"};
 
   public:
     Player();
@@ -76,10 +82,14 @@ class Player{
     void addItem(string name, int data, string treeType);
     void modifyItem(string name, int newData, string treeType);
     void deleteItem(string name, string treeType);
+    void printAllItems(string type);
 
     void setCurrency(int copper, int silver, int electrum, int gold, int platinum);
     int getCurrency(string currencyType);
 
     void printCharacter();
+    void printSkills();
+    void printCurrency();
+
 };
 #endif

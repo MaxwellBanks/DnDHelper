@@ -8,7 +8,6 @@
 using namespace std;
 
 Player::Player(){
-
 }
 
 
@@ -194,6 +193,16 @@ void Player::deleteItem(string name, string treeType){
   }
 }
 
+void Player::printAllItems(string type){
+  if(type == "item"){
+    item.printTree();
+  }else if(type == "ability"){
+    ability.printTree();
+  }else{
+    spell.printTree();
+  }
+}
+
 //Currency Data
 void Player::setCurrency(int copper, int silver, int electrum, int gold, int platinum){
   currency.copper += copper;
@@ -232,4 +241,38 @@ void Player::printCharacter(){
   }
   cout << endl;
   cout << "##| Health: " << stats.currentHealth << "/" << stats.maxHealth << " || AC: " << stats.AC << " || Initiative: " << stats.initiative << endl;
+  cout << "##| Speed: " << stats.speed << " || Passive Wis: " << stats.passiveWis << " || Proficiency Bonus: " << stats.proficiencyBonus << endl;
+  cout << "##| Stats| ";
+  for(int i = 0; i < 6; i++){
+    cout << statArrNames[i] << ": " << stats.statArr[i];
+  }
+  cout << endl << "## | Stat Mods | ";
+  for(int i = 0; i < 6; i++){
+    cout << statArrNames[i] << ": " << statModifierCalc(stats.statArr[i]);
+  }
+  cout << endl << "##########################################" << endl;
+}
+
+void Player::printSkills(){
+  for(int i = 0; i < 18; i++){
+    cout << skillArrNames[i] << ": " << skills[i].modifier;
+    if(skills[i].expertise){
+      cout << "(E)";
+    }else if(skills[i].proficient){
+      cout << "(P)";
+    }
+    if((i % 3) == 2){
+      cout << endl;
+    }else{
+      cout << " || ";
+    }
+  }
+}
+
+void Player::printCurrency(){
+  cout << currencyNames[0] << ": " << currency.copper << endl;
+  cout << currencyNames[1] << ": " << currency.silver << endl;
+  cout << currencyNames[2] << ": " << currency.electrum << endl;
+  cout << currencyNames[3] << ": " << currency.gold << endl;
+  cout << currencyNames[4] << ": " << currency.platinum << endl;
 }

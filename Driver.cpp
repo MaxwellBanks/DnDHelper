@@ -26,10 +26,10 @@ int main(){
   test.setSavingThrows(4, false, false, 2);
   test.setSavingThrows(5, false, false, 2);
   for(int i = 0; i < 18; i ++){
-    test.setSkills(i, i % 2, i % 4, 6);
+    test.setSkills(i, i % 2, i % 3, 6);
   }
   test.setCurrency(10, 20, 30, 40, 50);
-  //test.printCharacter();
+  test.printCharacter();
 
   items.readData("testData1.txt");
   //items.printTable();
@@ -39,7 +39,9 @@ int main(){
   bst.addItem("ability2", 2);
   bst.addItem("ability4", 4);
   bst.addItem("ability3", 3);
-  bst.printTree();
+  //bst.printTree();
   bst.deleteItem("ability3");
-  bst.printTree();
+  test.printSkills();
+  test.printCurrency();
+  //bst.printTree();
 }
