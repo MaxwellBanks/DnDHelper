@@ -144,7 +144,7 @@ BST::~BST(){
   destroyTree(root);
 }
 
-Item* BST::modifyItem(Item* curr, string name, int newData){
+Item* BST::modifyItem(string name, int newData){
   Item* toEdit = searchHelper(root, name);
   toEdit->data = newData;
   return toEdit;

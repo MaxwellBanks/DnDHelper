@@ -40,7 +40,7 @@ class BST{
     BST();
     BST(string type);
     ~BST();
-    Item* modifyItem(Item* curr, string name, int newData);
+    Item* modifyItem(string name, int newData);
     void deleteItem(string name);
 };
 #endif

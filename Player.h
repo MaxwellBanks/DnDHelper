@@ -73,6 +73,10 @@ class Player{
     void setStats(int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis, int totalLevel, int profBonus, int* statArr);
     int getStats(string statType);
 
+    void addItem(string name, int data, string treeType);
+    void modifyItem(string name, int newData, string treeType);
+    void deleteItem(string name, string treeType);
+
     void setCurrency(int copper, int silver, int electrum, int gold, int platinum);
     int getCurrency(string currencyType);
 

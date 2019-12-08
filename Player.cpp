@@ -3,6 +3,7 @@
 #include "Player.h"
 #include <string>
 #include <cmath>
+#include "BST.h" 
 
 using namespace std;
 
@@ -157,8 +158,41 @@ int Player::getStats(string statType){
 //////////////////////////////////////////////////////////////////////////////
 
 //BST for items here
+BST item("item");
 //BST for abilities
+BST ability("ability");
 // BST for spells
+BST spell("spell");
+
+void Player::addItem(string name, int data, string treeType){
+  if(treeType == "item"){
+    item.addItem(name, data);
+  }else if(treeType == "ability"){
+    ability.addItem(name, data);
+  }else{
+    spell.addItem(name, data);
+  }
+}
+
+void Player::modifyItem(string name, int newData, string treeType){
+  if(treeType == "item"){
+      item.modifyItem(name, newData);
+    }else if(treeType == "ability"){
+      ability.modifyItem(name, newData);
+    }else{
+      spell.modifyItem(name, newData);
+    }
+  }
+
+void Player::deleteItem(string name, string treeType){
+  if(treeType == "item"){
+    item.deleteItem(name);
+  }else if(treeType == "ability"){
+    ability.deleteItem(name);
+  }else{
+    spell.deleteItem(name);
+  }
+}
 
 //Currency Data
 void Player::setCurrency(int copper, int silver, int electrum, int gold, int platinum){
