@@ -181,13 +181,13 @@ void Player::addItem(string name, int data, string treeType){
 
 void Player::modifyItem(string name, int newData, string treeType){
   if(treeType == "item"){
-      item.modifyItem(name, newData);
-    }else if(treeType == "ability"){
-      ability.modifyItem(name, newData);
-    }else{
-      spell.modifyItem(name, newData);
-    }
+    item.modifyItem(name, newData);
+  }else if(treeType == "ability"){
+    ability.modifyItem(name, newData);
+  }else{
+    spell.modifyItem(name, newData);
   }
+}
 
 void Player::deleteItem(string name, string treeType){
   if(treeType == "item"){
@@ -250,7 +250,7 @@ void Player::printCharacter(){
   cout << "##| Speed: " << stats.speed << " || Passive Wis: " << stats.passiveWis << " || Proficiency Bonus: " << stats.proficiencyBonus << endl;
   cout << "##| Stats| ";
   for(int i = 0; i < 6; i++){
-    cout << statArrNames[i] << ": " << stats.statArr[i];
+    cout << statArrNames[i] << ": " << stats.statArr[i] << " ";
   }
   cout << endl << "## | Stat Mods | ";
   for(int i = 0; i < 6; i++){

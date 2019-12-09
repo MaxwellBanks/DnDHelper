@@ -5,7 +5,7 @@
 
 using namespace std;
 
-BST partyItems;
+BST partyItems("items");
 
 Party::Party(){
 }
@@ -66,10 +66,15 @@ void Party::addPlayer(string playerName, string charName, string charNickname, s
 
 void Party::editPlayer(string playerName){
     Player* toEdit = new Player;
+    toEdit = NULL;
     for(int i = 0; i < players.size(); i++){
         if(players[i].getIdentityInfo("playerName") == playerName){
             toEdit = &players[i];
         }
+    }
+    if(!toEdit){
+        cout << "Sorry, that's not a valid player!" << endl;
+        return;
     }
     cout << "Please input what you'd like to edit ('help' for help)" << endl;
     string userInput = "";

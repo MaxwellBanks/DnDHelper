@@ -15,11 +15,10 @@ ItemHash items(10313);
 ItemHash abilities(593);
 ItemHash monsters(10313);
 
-BST monstersTree;
+BST monstersTree("monsters");
 
 Party party;
 
-BST bst("ability");
 
 Player test;
 
@@ -372,6 +371,122 @@ void getDataMenu(){
   }
 }
 
+void managePartyMenu(){
+  string choice;
+  string choice2;
+  while(true){
+    choice = "";
+    cout << "------------------" << endl;
+    cout << "1: Edit Player" << endl;
+    cout << "2: Print Party" << endl;
+    cout << "3: Print Money" << endl;
+    cout << "4: Edit Party Money" << endl;
+    cout << "5: Add Item" << endl;
+    cout << "6: Modify Item" << endl;
+    cout << "7: Delete Item" << endl;
+    cout << "8: Print Party Inventory" << endl;
+    cout << "9: Go Back" << endl;
+    cout << "------------------" << endl;
+    cin >> choice;
+    if(isdigit(choice[0]) && stoi(choice) < 10 && stoi(choice) > 0){
+      break;
+    }
+    cout << "That's not a valid input! Please try again!" << endl;
+  }
+  switch(stoi(choice)){
+    case 1:
+      cout << "What player would you like to edit?" << endl;
+      choice = "";
+      cin >> choice;
+      party.editPlayer(choice);
+      break;
+    case 2:
+      party.printPlayers();
+      break;
+    case 3:
+      party.printMoney();
+      break;
+    case 4:
+      while(true){
+          cout << "------------------" << endl;
+          cout << "1: Copper" << endl;
+          cout << "2: Silver" << endl;
+          cout << "3. Electrum" << endl;
+          cout << "4: Gold" << endl;
+          cout << "5: Platinum" << endl;
+          cout << "------------------" << endl;
+          choice = "";
+          cin >> choice;
+          if(isdigit(choice[0]) && stoi(choice) < 6 && stoi(choice) > 0){
+            break;
+          }
+          cout << "That's not a valid input! Please try again!" << endl;
+        }
+        switch(stoi(choice)){
+          case 1:
+            cout << "How much would you like to withdraw or deposit?" << endl;
+            choice = "";
+            cin >> choice;
+            party.modifyMoney(stoi(choice), 0, 0, 0, 0);
+            break;
+          case 2:
+            cout << "How much would you like to withdraw or deposit?" << endl;
+            choice = "";
+            cin >> choice;
+            party.modifyMoney(0, stoi(choice), 0, 0, 0);
+            break;
+          case 3:
+            cout << "How much would you like to withdraw or deposit?" << endl;
+            choice = "";
+            cin >> choice;
+            party.modifyMoney(0, 0, stoi(choice), 0, 0);
+            break;
+          case 4:
+            cout << "How much would you like to withdraw or deposit?" << endl;
+            choice = "";
+            cin >> choice;
+            party.modifyMoney(0, 0, 0, stoi(choice), 0);
+            break;
+          default:
+            cout << "How much would you like to withdraw or deposit?" << endl;
+            choice = "";
+            cin >> choice;
+            party.modifyMoney(0, 0, 0, 0, stoi(choice));
+            break;
+        }
+      break;
+    case 5:
+      cout << "What is the item's name?" << endl;
+      choice = "";
+      cin >> choice;
+      cout << "What is the item's rarity?" << endl;
+      choice2 = "";
+      cin >> choice2;
+      party.addItem(choice, stoi(choice2));
+      break;
+    case 6:
+      cout << "What is the item's name?" << endl;
+      choice = "";
+      cin >> choice;
+      cout << "What is the item's quantity?" << endl;
+      choice2 = "";
+      cin >> choice2;
+      party.modifyItem(choice, stoi(choice2));
+      break;
+    case 7:
+      cout << "What item would you like to delete?" << endl;
+      choice = "";
+      cin >> choice;
+      party.deleteItem(choice);
+      break;
+    case 8:
+      party.printAllItems(); 
+      break;
+    default:
+      return;
+  }
+}
+
 int mainChoice = 0;
 
 int main(){
@@ -400,18 +515,23 @@ int main(){
   party.addPlayer("testname", "testchar", "test nick", "testrace", "testbkgd", testClassLevel, testClass,
                   testSubClass, allFalse, allFalse, statArr, allTrue, allTrue, longstatArr, 37, 40, 15, 3, 
                   30, 12, 5, 3, statArr, testClass, testClassLevel, testClass, testClassLevel, testClass, testClassLevel, currArr);
-  party.printPlayers();
+  party.addPlayer("testname2", "testchar", "test nick", "testrace", "testbkgd", testClassLevel, testClass,
+                  testSubClass, allFalse, allFalse, statArr, allTrue, allTrue, longstatArr, 37, 40, 15, 3, 
+                  30, 12, 5, 3, statArr, testClass, testClassLevel, testClass, testClassLevel, testClass, testClassLevel, currArr);
+  
 
 
   while(true){
     mainChoice = printMainMenu();
     switch(mainChoice){
       case 1:
+        managePartyMenu();
         break;
       case 2:
         generateEncounter();
         break;
       case 3:
+        cout << "Sorry, this function is not yet implemented" << endl;
         break;
       case 4:
         getDataMenu();
@@ -422,39 +542,4 @@ int main(){
     }
       
   }
-  /*
-  test.setIdentityInfo("Max", "Varis", "Var", "Elf", "Charlatain");
-  int statArr[6] = {15, 14, 13, 12, 11, 10};
-  test.setStats(37, 40, 16, 2, 30, 12, 5, 3, statArr);
-  test.addClass(5, "Bard", "College of Lore");
-  test.addClass(2, "Rogue", "Arcane Trickster");
-  test.setSavingThrows(0, false, false, 2);
-  test.setSavingThrows(1, true, false, 4);
-  test.setSavingThrows(2, false, false, 2);
-  test.setSavingThrows(3, true, true, 8);
-  test.setSavingThrows(4, false, false, 2);
-  test.setSavingThrows(5, false, false, 2);
-  for(int i = 0; i < 18; i ++){
-    test.setSkills(i, i % 2, i % 3, 6);
-  }
-  test.setCurrency(10, 20, 30, 40, 50);
-  //test.printCharacter();
-
-  items.readData("testData1.txt");
-  //items.printTable();
-  items.writeData("testData2.txt");
-
-  bst.addItem("ability1", 1);
-  bst.addItem("ability2", 2);
-  bst.addItem("ability4", 4);
-  bst.addItem("ability3", 3);
-  //bst.printTree();
-  bst.deleteItem("ability5");
-  //test.printSkills();
-  //test.printCurrency();
-  bst.printTree();
-  monsters.printTable();
-  spells.printTable();
-  items.printTable();
-  abilities.printTable();*/
 }
