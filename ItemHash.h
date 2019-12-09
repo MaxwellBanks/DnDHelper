@@ -32,6 +32,8 @@ class ItemHash{
     void readData(string filename);
 
     void writeData(string filename);
+
+    string getIndex(int index);
 };
 
 #endif

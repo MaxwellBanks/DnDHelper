@@ -59,6 +59,7 @@ void Party::addPlayer(string playerName, string charName, string charNickname, s
         newPlayer.addItem(spells[i], spellData[i], "spell");
     }
     newPlayer.setCurrency(currency[0], currency[1], currency[2], currency[3], currency[4]);
+    players.push_back(newPlayer);
 }
 
 //void Party::addPlayerByInput(){}
@@ -617,4 +618,12 @@ void Party::printPlayers(){
     for(int i = 0; i < players.size(); i++){
         players[i].printCharacter();
     }
+}
+
+int Party::getPartySize(){
+    return players.size();
+}
+
+int Party::getPlayerStats(string statType, int index){
+    return players[index].getStats(statType);
 }

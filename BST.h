@@ -35,7 +35,7 @@ class BST{
   public:
     Item* getRoot();
     void addItem(string name, int data);
-    bool searchItem(string name);
+    int searchItem(string name);
     void printTree();
     BST();
     BST(string type);

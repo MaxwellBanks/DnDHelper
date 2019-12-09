@@ -117,13 +117,13 @@ void BST::addItem(string name, int data){
   addItemHelper(root, name, data);
 }
 
-bool BST::searchItem(string name){
+int BST::searchItem(string name){
   Item* tree = searchHelper(root, name);
   if(tree){
-    return true;
+    return tree->data;
   }
   cout << name << " not found" << endl;
-  return false;
+  return 0;
 }
 
 void BST::printTree(){

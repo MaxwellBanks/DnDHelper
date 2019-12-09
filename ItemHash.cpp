@@ -111,3 +111,10 @@ void ItemHash::writeData(string filename){
   }
   oFile.close();
 }
+
+string ItemHash::getIndex(int index){
+  if(table[index]){
+    return table[index]->name;
+  }
+  return "";
+}
