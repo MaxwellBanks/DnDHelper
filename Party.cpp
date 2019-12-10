@@ -5,7 +5,7 @@
 
 using namespace std;
 
-BST partyItems("items");
+BST partyItems("item");
 
 Party::Party(){
 }
@@ -62,7 +62,9 @@ void Party::addPlayer(string playerName, string charName, string charNickname, s
     players.push_back(newPlayer);
 }
 
-//void Party::addPlayerByInput(){}
+void Party::addPlayerByInput(Player player){
+    players.push_back(player);
+}
 
 void Party::editPlayer(string playerName){
     Player* toEdit = new Player;

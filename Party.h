@@ -36,7 +36,7 @@ class Party{
                         int currHealth, int maxHealth, int ac, int initiative, int speed, int passiveWis,
                         int totalLevel, int profBonus, int statArr[6], vector<string> items, vector<int> itemsData, vector<string> spells, vector<int> spellData,
                         vector<string> abilities, vector<int> abilitiesData, int currency[5]);
-        //void addPlayerByInput();
+        void addPlayerByInput(Player player);
         int getPlayerStats(string statType, int index);
         void editPlayer(string playerName);
         void deletePlayer(string playerName);

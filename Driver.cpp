@@ -7,6 +7,7 @@
 #include <sstream>
 #include <locale>
 #include <time.h>
+#include <ctime>
 
 using namespace std;
 
@@ -99,6 +100,28 @@ void readInitData(){
     abilities.insertItem(name, description);
   }
   iAbilities.close();
+/*
+  line = "";
+  name = "";
+  string description = "";
+  ifstream iInventory;
+  iInventory.open("PartyInventory.csv");
+  if(!iInventory.is_open()){
+    cout << "File PartyInventory.csv cannot be opened" << endl;
+    return;
+  }
+  stringstream ss;
+  ss.str("");
+  ss.clear();
+  while(getline(iInventory, line)){
+    ss.str(line);
+    name = "";
+    description = "";
+    getline(ss, name, ',');
+    getline(ss, description);
+    abilities.insertItem(name, description);
+  }
+  iAbilities.close();*/
 }
 
 void readInitPlayers(){
@@ -109,8 +132,8 @@ void readInitPlayers(){
     return;
   }
   string line;
-  string countlong;
-  string countshort;
+  string countPlayers;
+  string countShort;
   string hold1;
   string hold2;
   string hold3;
@@ -119,13 +142,14 @@ void readInitPlayers(){
   string hold6;
   string hold7;
   string hold8;
+  string hold9;
   bool profHold;
   bool expHold;
   int holdStats[6];
   string holdSkills[18];
   stringstream ss;
-  getline(iPlayers, countlong);
-  for(int i = 0; i < stoi(countlong); i++){
+  getline(iPlayers, countPlayers);
+  for(int i = 0; i < stoi(countPlayers); i++){
     Player player;
     line = "";
     getline(iPlayers, line);
@@ -133,7 +157,9 @@ void readInitPlayers(){
     getline(ss, hold1, ',');
     getline(ss, hold2, ',');
     getline(ss, hold3);
+    line = "";
     ss.str("");
+    ss.clear();
     getline(iPlayers, line);
     ss.str(line);
     getline(ss, hold4, ',');
@@ -141,22 +167,28 @@ void readInitPlayers(){
     player.setIdentityInfo(hold1, hold2, hold3, hold4, hold5);
     hold1 = hold2 = hold3 = hold4 = hold5 = "";
     //holding total level
-    getline(ss, hold8);
-    countshort = "";
-    getline(iPlayers, countshort);
-    for(int j = 0; j < stoi(countshort); j++){
+    getline(ss, hold8, ',');
+    countShort = "";
+    getline(iPlayers, countShort);
+    for(int j = 0; j < stoi(countShort); j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       getline(iPlayers, line);
-      cout << line;
       ss.str(line);
       getline(ss, hold1, ',');
       getline(ss, hold2, ',');
       getline(ss, hold3);
-      //player.addClass(stoi(hold3), hold1, hold2);
+      player.addClass(stoi(hold3), hold1, hold2);
       hold1 = hold2 = hold3 = "";
-    }/*
-    countshort = "";
+    }
+    countShort = "";
     for(int j = 0; j < 6; j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       getline(iPlayers, line);
+      //cout << "Line " << j << ": " << line << endl;
       ss.str(line);
       getline(ss, hold1, ',');
       getline(ss, hold2, ',');
@@ -171,11 +203,15 @@ void readInitPlayers(){
       }else{
         expHold = true;
       }
-      player.setSavingThrows(i, profHold, expHold, stoi(hold3));
+      player.setSavingThrows(j, profHold, expHold, stoi(hold3));
       hold1 = hold2 = hold3 = "";
     }
     for(int j = 0; j < 18; j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       getline(iPlayers, line);
+      //cout << "Line " << j << ": " << line << endl;
       ss.str(line);
       getline(ss, hold1, ',');
       getline(ss, hold2, ',');
@@ -190,19 +226,26 @@ void readInitPlayers(){
       }else{
         expHold = true;
       }
-      player.setSkills(i, profHold, expHold, stoi(hold3));
+      player.setSkills(j, profHold, expHold, stoi(hold3));
       hold1 = hold2 = hold3 = "";
     }
+    line = "";
+    ss.str("");
+    ss.clear();
     getline(iPlayers, line);
     ss.str(line);
     //currhealth
     getline(ss, hold1, ',');
+    //cout << "Hold1: " << hold1 << endl;
     //maxhealth
     getline(ss, hold2, ',');
     //ac
     getline(ss, hold3, ',');
     //initiative
     getline(ss, hold4);
+    line = "";
+    ss.str("");
+    ss.clear();
     getline(iPlayers, line);
     ss.str(line);
     //speed
@@ -210,17 +253,24 @@ void readInitPlayers(){
     //passivewis
     getline(ss, hold6, ',');
     //profbonus
-    getline(ss, hold7, ',');
+    getline(ss, hold7);
+    //cout << "Line2: " << line << endl;
+    line = "";
+    ss.str("");
+    ss.clear();
     getline(iPlayers, line);
     ss.str(line);
     //stats
     for(int j = 0; j < 6; j++){
-      getline(ss, hold1, ',');
-      holdStats[i] = stoi(hold1);
-      hold1 = "";
+      hold9 = "";
+      getline(ss, hold9, ',');
+      holdStats[j] = stoi(hold9);
     }
     player.setStats(stoi(hold1), stoi(hold2), stoi(hold3), stoi(hold4), stoi(hold5), stoi(hold6), stoi(hold8), stoi(hold7), holdStats);
     hold1 = hold2 = hold3 = hold4 = hold5 = hold6 = hold7 = hold8 = "";
+    line = "";
+    ss.str("");
+    ss.clear();
     getline(iPlayers, line);
     ss.str(line);
     for(int j = 0; j < 5; j++){
@@ -228,9 +278,16 @@ void readInitPlayers(){
       holdStats[i] = stoi(hold1);
       hold1 = "";
     }
+    line = "";
+    ss.str("");
+    ss.clear();
     player.setCurrency(holdStats[0], holdStats[1], holdStats[2], holdStats[3], holdStats[4]);
-    getline(iPlayers, countshort);
-    for(int j = 0; j < stoi(countshort); j++){
+    countShort = "";
+    getline(iPlayers, countShort);
+    for(int j = 0; j < stoi(countShort); j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       hold1 = hold2 = "";
       getline(iPlayers, line);
       ss.str(line);
@@ -239,9 +296,12 @@ void readInitPlayers(){
       player.addItem(hold1, stoi(hold2), "item");
     }
     hold1 = "";
-    countshort = "";
-    getline(iPlayers, countshort);
-    for(int j = 0; j < stoi(countshort); j++){
+    countShort = "";
+    getline(iPlayers, countShort);
+    for(int j = 0; j < stoi(countShort); j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       hold1 = hold2 = "";
       getline(iPlayers, line);
       ss.str(line);
@@ -250,21 +310,41 @@ void readInitPlayers(){
       player.addItem(hold1, stoi(hold2), "spell");
     }
     hold1 = "";
-    countshort = "";
-    getline(iPlayers, countshort);
-    for(int j = 0; j < stoi(countshort); j++){
+    countShort = "";
+    getline(iPlayers, countShort);
+    for(int j = 0; j < stoi(countShort); j++){
+      line = "";
+      ss.str("");
+      ss.clear();
       hold1 = hold2 = "";
       getline(iPlayers, line);
       ss.str(line);
       getline(ss, hold1, ',');
       getline(ss, hold2);
       player.addItem(hold1, stoi(hold2), "ability");
-    }*/
+    }
+    line = "";
+    ss.str("");
+    ss.clear();
+    party.addPlayerByInput(player);
   }
   iPlayers.close();
 }
 
-void generateEncounter(){
+void savePartyData(){
+
+}
+
+bool inVector(string name, vector<string> names){
+  for(int i = 0; i < names.size(); i++){
+    if(names[i] == name){
+      return true;
+    }
+  }
+  return false;
+}
+
+vector <string> generateEncounter(vector<string> lastEncounter){
   int levelSum = 0;
   int monsterLevel = 0;
   int zeroCount = 0;
@@ -277,13 +357,14 @@ void generateEncounter(){
   }else{
     levelSum = levelSum * 0.25;
   }
-  srand(time(0));
+  time_t currentTime;
+  srand(time(&currentTime));
   int start = rand() % 10313;
   for(int i = start; i < 10313; i++){
     if(!monsters.getIndex(i).empty()){
       monsterLevel = monstersTree.searchItem(monsters.getIndex(i));
-      if(monsterLevel <= levelSum){
-        if((monsterLevel != 0 || zeroCount < 3)){
+      if(monsterLevel <= levelSum && !inVector(monsters.getIndex(i), lastEncounter)){
+        if((monsterLevel != 0 || zeroCount < 2)){
           levelSum -= monsterLevel;
           encounter.push_back(monsters.getIndex(i));
         }
@@ -295,10 +376,10 @@ void generateEncounter(){
         for(int i = 0; i < encounter.size(); i++){
           cout << encounter[i] << "| CR " << monstersTree.searchItem(monsters.getIndex(monsters.hashFunction(encounter[i]))) << endl;
         }
-        return;
+        return encounter;
       }
     }
-    if(i == 10312){
+    if(i >= 10312){
       i = -1;
     }
   }
@@ -459,7 +540,7 @@ void managePartyMenu(){
       cout << "What is the item's name?" << endl;
       choice = "";
       cin >> choice;
-      cout << "What is the item's rarity?" << endl;
+      cout << "What is the item's quantity?" << endl;
       choice2 = "";
       cin >> choice2;
       party.addItem(choice, stoi(choice2));
@@ -480,7 +561,10 @@ void managePartyMenu(){
       party.deleteItem(choice);
       break;
     case 8:
+      cout << "--------------------" << endl;
+      cout << "Party Inventory:" << endl;
       party.printAllItems(); 
+      cout << "--------------------" << endl;
       break;
     default:
       return;
@@ -491,36 +575,19 @@ int mainChoice = 0;
 
 int main(){
   readInitData();
-  //readInitPlayers();
-
-
-  vector <int> testClassLevel;
-  vector <string> testClass;
-  vector <string> testSubClass;
-  testClassLevel.push_back(5);
-  testClass.push_back("bard");
-  testSubClass.push_back("college of lore");
-  bool allFalse[6];
-  bool allTrue[18];
-  int longstatArr[18];
-  for(int i = 0; i< 6; i++){
-    allFalse[i] = false;
-  }
-  for(int i = 0; i < 18; i++){
-    allTrue[i] = true;
-    longstatArr[i] = i % 3;
-  }
-  int statArr[6] = {15, 14, 13, 12, 11, 10};
-  int currArr[5] = {1, 2, 3, 4, 5};
-  party.addPlayer("testname", "testchar", "test nick", "testrace", "testbkgd", testClassLevel, testClass,
-                  testSubClass, allFalse, allFalse, statArr, allTrue, allTrue, longstatArr, 37, 40, 15, 3, 
-                  30, 12, 5, 3, statArr, testClass, testClassLevel, testClass, testClassLevel, testClass, testClassLevel, currArr);
-  party.addPlayer("testname2", "testchar", "test nick", "testrace", "testbkgd", testClassLevel, testClass,
-                  testSubClass, allFalse, allFalse, statArr, allTrue, allTrue, longstatArr, 37, 40, 15, 3, 
-                  30, 12, 5, 3, statArr, testClass, testClassLevel, testClass, testClassLevel, testClass, testClassLevel, currArr);
+  readInitPlayers();
   
 
-
+  vector<string> lastEncounter;
+  vector<string> latestHolder;
+  lastEncounter.push_back("ape");
+  lastEncounter.push_back("bat");
+  lastEncounter.push_back("baboon");
+  lastEncounter.push_back("elk");
+  lastEncounter.push_back("ape");
+  lastEncounter.push_back("bat");
+  lastEncounter.push_back("cat");
+  time_t currentTime;
   while(true){
     mainChoice = printMainMenu();
     switch(mainChoice){
@@ -528,7 +595,12 @@ int main(){
         managePartyMenu();
         break;
       case 2:
-        generateEncounter();
+        latestHolder = generateEncounter(lastEncounter);
+        lastEncounter.insert(lastEncounter.end(), latestHolder.begin(), latestHolder.end());
+        srand(time(&currentTime));
+        for(int i = 0; i < latestHolder.size(); i++){
+          lastEncounter.erase(lastEncounter.begin() + rand() % lastEncounter.size());
+        }
         break;
       case 3:
         cout << "Sorry, this function is not yet implemented" << endl;
@@ -539,7 +611,6 @@ int main(){
       default:
         cout << "Goodbye" << endl;
         return 0;
-    }
-      
+    }   
   }
 }
